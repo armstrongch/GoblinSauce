@@ -13,8 +13,13 @@
 			h4 {
 				font-weight: normal;
 			}
+			#contentDiv {
+				display: grid;
+			}
 			img {
 				max-width: 100%;
+				max-height: 70vh;
+				margin: auto;
 			}
 		</style>
 		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, width=device-width, user-scalable=no" />
@@ -60,7 +65,7 @@
 				var src = images["image" + GET.imageIndex].src;
 				var caption = images["image" + GET.imageIndex].caption;
 				var contentHeight = Math.floor(screen.height * 0.6)
-				var contentHTML = "<img src='" + src + "' height='" + contentHeight + "px'></img>";
+				var contentHTML = "<img src='" + src + "'></img>";
 				contentHTML += "<h2>" + caption + "</h2>"
 				$('#contentDiv').html(contentHTML);
 				
