@@ -2,16 +2,13 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>TITLE</title>
+		<title>Don't Tell Dad</title>
 		<style type="text/css">
 			* {
 				text-align: center;
 			}
 			.invisible {
 				display: none;
-			}
-			#contentDiv {
-				max-height: 80%;
 			}
 			h4 {
 				font-weight: normal;
@@ -21,6 +18,7 @@
 	</head>
 	<body onload="loadPage()">
 		<div id="containerDiv">
+			<h1>Stock Explained</h1>
 			<div id="contentDiv"></div>
 			<div id="navigationDiv">
 				<h4>
@@ -58,7 +56,8 @@
 				
 				var src = images["image" + GET.imageIndex].src;
 				var caption = images["image" + GET.imageIndex].caption;
-				var contentHTML = "<img src='" + src + "' width='100%'></img>";
+				var contentHeight = Math.floor(screen.height * 0.6)
+				var contentHTML = "<img src='" + src + "' height='" + contentHeight + "px'></img>";
 				contentHTML += "<h2>" + caption + "</h2>"
 				$('#contentDiv').html(contentHTML);
 				
