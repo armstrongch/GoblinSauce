@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>TITLE</title>
+		<style type="text/css">
+			* {
+				text-align: center;
+			}
+			.invisible {
+				display: none;
+			}
+			#contentDiv {
+				max-height: 80%;
+			}
+			h4 {
+				font-weight: normal;
+			}
+		</style>
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, width=device-width, user-scalable=no" />
+	</head>
+	<body onload="loadPage()">
+		<div id="containerDiv">
+			<div id="contentDiv"></div>
+			<div id="navigationDiv">
+				<h4>
+					<a id="first">First</a>
+					<a id="previous">Previous</a>
+					<a id="random">Random</a>
+					<a id="next">Next</a>
+					<a id="latest">Latest</a>
+				</h4>
+			</div>
+			<div id="infoDiv">
+				<h4>
+					Created by: Dr. Kevballs and Turd Boomerang
+					<br/>
+					Image Sources: <a href="https://pixabay.com/">Pixabay</a>
+				</h4>
+		</div>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" type="text/javascript"></script>
+		<script>
+			function loadPage()
+			{
+				var GET = {
+					imageIndex: images.latestImageIndex
+				};
+				var query = window.location.search.substring(1).split("&");
+				
+				for (var i = 0, max = query.length; i < max; i++)
+				{
+					if (query[i] === "")
+						continue;
+						
+					var param = query[i].split("=");
+					GET[decodeURIComponent(param[0])] = decodeURIComponent(param[1] || "");
+				}
+				
+				var src = images["image" + GET.imageIndex].src;
+				var caption = images["image" + GET.imageIndex].caption;
+				var contentHTML = "<img src='" + src + "' width='100%'></img>";
+				contentHTML += "<h2>" + caption + "</h2>"
+				$('#contentDiv').html(contentHTML);
+				
+				var currentURL = location.href;
+				
+				
+				if (GET.imageIndex > 0)
+				{
+					$('#first').attr("href", "index.html?imageIndex=0");
+					var previousIndex = parseInt(GET.imageIndex) - 1;
+					$('#previous').attr("href", "index.html?imageIndex=" + previousIndex);
+				}
+				if (GET.imageIndex < images.latestImageIndex)
+				{
+					$('#latest').attr("href", "index.html?imageIndex=" + images.latestImageIndex);
+					var nextIndex = parseInt(GET.imageIndex) + 1;
+					$('#next').attr("href", "index.html?imageIndex=" + nextIndex);
+				}
+				var randomIndex = Math.floor(Math.random()*(images.latestImageIndex+1));
+				$('#random').attr("href", "index.html?imageIndex=" + randomIndex);
+			}
+			
+			//https://pixabay.com/
+			var images = {
+				latestImageIndex: 3,
+				image3: {
+					src: "images/dolphin3.jpg",
+					caption: "Dolphin 3 Caption"
+				},
+				image2: {
+					src: "images/children2.jpg",
+					caption: "Children 2 Caption"
+				},
+				image1: {
+					src: "images/rain1.jpg",
+					caption: "Rain 1 Caption"
+				},
+				image0: {
+					src: "images/workplace0.jpg",
+					caption: "Workplace 0 Caption."
+				}
+			}
+		</script>
+	</body>
+</html>
